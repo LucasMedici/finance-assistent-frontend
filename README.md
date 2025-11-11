@@ -22,12 +22,12 @@ O app envia as mensagens para o backend do **Jorge - Assistent**, que processa, 
    ```bash
    npm install
    
-2. Crie um arquivo .env na raiz do projeto com as variáveis de ambiente:
+2. **Crie um arquivo .env na raiz do projeto com as variáveis de ambiente:**
    ```bash
    API_BASE_URL=http://localhost:3000
    ```
-3. Inicie o servidor de desenvolvimento:
+3. **Inicie o servidor de desenvolvimento:**
    ```bash
    npx expo start
    ```
-4. Abra o aplicativo no celular usando o app Expo Go (Android/iOS) e escaneie o QR Code exibido no terminal ou navegador.
+4. **Abra o aplicativo no celular usando o app Expo Go (Android/iOS) e escaneie o QR Code exibido no terminal ou navegador.**
