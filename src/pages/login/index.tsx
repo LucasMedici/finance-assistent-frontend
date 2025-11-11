@@ -1,8 +1,13 @@
 import React from "react"; 
-import {Text} from "react-native";
+import {Button, Text, View} from "react-native";
+
+import { style } from "./styles";
 
 export default function LoginPage() {
     return (
-        <Text>Login Page</Text>
+        <View style={style.loginContainer}> 
+            <Text>Login Page</Text>
+            <Button title="Login" onPress={() => {}} />
+        </View>
     )
 }
