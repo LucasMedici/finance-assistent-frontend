@@ -25,13 +25,17 @@ export const style = StyleSheet.create({
     fontSize: 15,
     color: '#8DC63E',
     paddingTop: 20,
+    alignSelf: 'flex-start',
+    paddingLeft: 60,
   },
   header: {
     alignItems: 'center',
+    backgroundColor: 'red',
   },
   main: {
     width: '100%',
     alignItems: 'center',
+    backgroundColor: 'yellow',
   },
   inputBox: {
     flexDirection: 'row',
@@ -52,6 +56,7 @@ export const style = StyleSheet.create({
   footer: {
     alignItems: 'center',
     marginTop: 30,
+    backgroundColor: 'blue',
   },
   logo: {
     width: 200,
