@@ -77,7 +77,7 @@ export const style = StyleSheet.create({
   },
   textButton: {
     fontFamily: fonts.medium,
-    fontSize: 25,
+    fontSize: 22,
     color: '#FFFFFF',
   },
   footer: {

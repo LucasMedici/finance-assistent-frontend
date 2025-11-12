@@ -1,9 +1,12 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
-import LoginPage from './src/pages/login';
 import { useLoadFonts, fonts } from './src/global/fonts';
 import { themas } from './src/global/themes';
 import { globalStyles } from './src/global/globalStyles';
+import routes from './src/routes/stack.routes';
+
+import LoginPage from './src/pages/login';
+import RegisterPage from './src/pages/register';
 
 export default function App() {
   const fontsLoaded = useLoadFonts();
@@ -13,8 +16,6 @@ export default function App() {
     return null;
   }
   return (
-    <View style={globalStyles.container}>
-      <LoginPage />
-    </View>
+    
   );
 }
