@@ -24,6 +24,7 @@ export const style = StyleSheet.create({
     fontSize: 15,
     color: '#8DC63E',
     paddingLeft: 10,
+    paddingTop: 20,
   },
   header: {
     flex: 1,

@@ -5,10 +5,10 @@ import { fonts } from "../../global/fonts";
 import jorgeBaseImage from "../../assets/Jorge-base.png"
 import whatsCode from "../../assets/whatscode.png"
 import { themas } from "../../global/themes";
-import {Fontisto} from '@expo/vector-icons';
 
 export default function LoginPage() {
     const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
     return (
         <View style={style.loginContainer}> 
             <View style={style.header}>
@@ -32,10 +32,17 @@ export default function LoginPage() {
                         autoCapitalize="none" 
                         selectionColor={themas.colors.primary}
                     />
-                    <Fontisto 
-                        name="email"
-                        size={30}
-                        color={"#666666"}
+                </View>
+
+                <Text style={style.inputTitle}>Digite sua Senha:</Text>
+                <View style={style.inputBox}>
+                    <TextInput
+                        style={style.textInput}
+                        value={password}
+                        onChangeText={setPassword}
+                        keyboardType="default"
+                        autoCapitalize="none" 
+                        selectionColor={themas.colors.primary}
                     />
                 </View>
                 
