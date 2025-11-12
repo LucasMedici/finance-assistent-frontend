@@ -28,6 +28,7 @@ export const style = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    paddingTop: 60,
   },
   main: {
     flex: 1,
@@ -40,6 +41,7 @@ export const style = StyleSheet.create({
     alignItems: 'center',
   },
   logo: {
-    backgroundColor: 'red',
+    width: 200,
+    height: 200,
   },
 });

@@ -1,14 +1,19 @@
 import React from "react"; 
 import {Button, Text, View, Image} from "react-native";
-
 import { style } from "./styles";
 import { fonts } from "../../global/fonts";
+import jorgeBaseImage from "../../assets/Jorge-base.png"
+import whatsCode from "../../assets/whatscode.png"
 
 export default function LoginPage() {
     return (
         <View style={style.loginContainer}> 
             <View style={style.header}>
-                <Image source={require("../../assets/Jorge-base.png")} style={style.logo}/>
+                <Image 
+                    source={whatsCode} 
+                    style={style.logo}
+                    resizeMode="contain"
+                />
                 <Text style={style.title}>Bem-Vindo!</Text>
                 <Text style={style.subtitle}>Efetue seu Login</Text>
             </View>
