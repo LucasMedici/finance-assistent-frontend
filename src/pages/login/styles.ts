@@ -3,11 +3,12 @@ import { themas } from '../../global/themes';
 import { fonts } from '../../global/fonts';
 
 export const style = StyleSheet.create({
-  loginContainer: {
-    flex: 1,
-    justifyContent: 'center',
+  scrollContainer: {
+    flexGrow: 1,
+    justifyContent: 'space-between',
     alignItems: 'center',
     backgroundColor: themas.colors.primary,
+    paddingVertical: 40,
   },
   title: {
     fontFamily: fonts.medium,
@@ -23,19 +24,14 @@ export const style = StyleSheet.create({
     fontFamily: fonts.medium,
     fontSize: 15,
     color: '#8DC63E',
-    paddingLeft: 10,
     paddingTop: 20,
   },
   header: {
-    flex: 1,
-    justifyContent: 'center',
     alignItems: 'center',
-    paddingTop: 60,
   },
   main: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'flex-start',
+    width: '100%',
+    alignItems: 'center',
   },
   inputBox: {
     flexDirection: 'row',
@@ -54,9 +50,8 @@ export const style = StyleSheet.create({
     elevation: 6,
   },
   footer: {
-    flex: 1,
-    justifyContent: 'center',
     alignItems: 'center',
+    marginTop: 30,
   },
   logo: {
     width: 200,
