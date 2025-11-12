@@ -1,5 +1,5 @@
 import React, {useState} from "react"; 
-import {Text, View, Image, TextInput, KeyboardAvoidingView, Platform, ScrollView} from "react-native";
+import {Text, View, Image, TextInput, KeyboardAvoidingView, Platform, ScrollView, TouchableOpacity, Alert} from "react-native";
 import { style } from "./styles";
 import { fonts } from "../../global/fonts";
 import { themas } from "../../global/themes";
@@ -9,6 +9,21 @@ import whatsCode from "../../assets/whatscode.png";
 export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  const handleLogin =  () => {
+
+    if(!email || !password) {
+      Alert.alert(
+        "Campos obrigatórios", 
+        "Por favor, preencha todos os campos.",
+        [
+          { text: "OK" },
+        ]
+      )
+    }
+
+    //Autenticar aqui...
+  }
 
   return (
     <KeyboardAvoidingView 
@@ -51,6 +66,10 @@ export default function LoginPage() {
               selectionColor={themas.colors.primary}
             />
           </View>
+
+          <TouchableOpacity style={style.button} onPress={handleLogin}>
+            <Text style={style.textButton}>Entrar</Text>
+          </TouchableOpacity>
         </View>
 
         <View style={style.footer}>

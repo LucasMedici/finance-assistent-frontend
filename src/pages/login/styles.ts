@@ -46,11 +46,39 @@ export const style = StyleSheet.create({
     height: 50,
     borderRadius: 15,
     paddingHorizontal: 12,
-    shadowColor: 'black',
-    shadowOffset: { width: 5, height: 6 },
-    shadowOpacity: 10,
-    shadowRadius: 8,
-    elevation: 6,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 6,
+    },
+    shadowOpacity: 0.39,
+    shadowRadius: 8.3,
+
+    elevation: 13,
+  },
+  button: {
+    width: '30%',
+    height: 50,
+    backgroundColor: themas.colors.secondary,
+    borderRadius: 15,
+    marginTop: 30,
+    alignItems: 'center',
+    justifyContent: 'center',
+
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 6,
+    },
+    shadowOpacity: 0.39,
+    shadowRadius: 8.3,
+
+    elevation: 13,
+  },
+  textButton: {
+    fontFamily: fonts.medium,
+    fontSize: 25,
+    color: '#FFFFFF',
   },
   footer: {
     alignItems: 'center',
