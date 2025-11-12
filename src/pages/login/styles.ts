@@ -5,7 +5,8 @@ import { fonts } from '../../global/fonts';
 export const style = StyleSheet.create({
   scrollContainer: {
     flexGrow: 1,
-    justifyContent: 'space-between',
+    justifyContent: 'center',
+    gap: 80,
     alignItems: 'center',
     backgroundColor: themas.colors.primary,
     paddingVertical: 40,
@@ -30,12 +31,10 @@ export const style = StyleSheet.create({
   },
   header: {
     alignItems: 'center',
-    backgroundColor: 'red',
   },
   main: {
     width: '100%',
     alignItems: 'center',
-    backgroundColor: 'yellow',
   },
   inputBox: {
     flexDirection: 'row',
@@ -56,7 +55,6 @@ export const style = StyleSheet.create({
   footer: {
     alignItems: 'center',
     marginTop: 30,
-    backgroundColor: 'blue',
   },
   logo: {
     width: 200,
