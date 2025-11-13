@@ -7,12 +7,12 @@ import RegisterPage from '../pages/register';
 
 const Stack = createNativeStackNavigator();
 
-export default function routes() {
+export default function Routes() {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Login">
-        <Stack.Screen name="Login" component={LoginPage} options={{ headerShown: false }} />
-        <Stack.Screen name="Register" component={RegisterPage} options={{ headerShown: false }} />
+        <Stack.Screen name="Login" component={LoginPage} options={{ headerShown: false, animation: 'none' }}/>
+        <Stack.Screen name="Register" component={RegisterPage} options={{ headerShown: false, animation: 'none' }} />
       </Stack.Navigator>
     </NavigationContainer>
   );

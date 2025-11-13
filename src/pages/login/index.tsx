@@ -6,7 +6,7 @@ import { themas } from "../../global/themes";
 
 import whatsCode from "../../assets/whatscode.png";
 
-export default function LoginPage() {
+export default function LoginPage({navigation}: any) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -74,7 +74,9 @@ export default function LoginPage() {
 
         <View style={style.footer}>
           <Text style={style.subtitle}>Não tem uma conta?</Text>
-          <Text style={{fontFamily: fonts.regular, fontSize: 14, color: '#8DC63E'}}>Criar agora</Text>
+          <TouchableOpacity onPress={() => navigation.navigate('Register')}>
+            <Text style={{fontFamily: fonts.regular, fontSize: 14, color: '#8DC63E'}}>Criar agora</Text>
+          </TouchableOpacity>
         </View>
       </ScrollView>
     </KeyboardAvoidingView>

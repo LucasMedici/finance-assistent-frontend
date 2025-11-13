@@ -25,7 +25,7 @@ export const style = StyleSheet.create({
     fontFamily: fonts.medium,
     fontSize: 15,
     color: '#8DC63E',
-    paddingTop: 20,
+    paddingTop: 10,
     alignSelf: 'flex-start',
     paddingLeft: 60,
   },

@@ -3,7 +3,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import { useLoadFonts, fonts } from './src/global/fonts';
 import { themas } from './src/global/themes';
 import { globalStyles } from './src/global/globalStyles';
-import routes from './src/routes/stack.routes';
+import Routes from './src/routes/stack.routes';
 
 import LoginPage from './src/pages/login';
 import RegisterPage from './src/pages/register';
@@ -16,6 +16,6 @@ export default function App() {
     return null;
   }
   return (
-    
+    <Routes />
   );
 }
