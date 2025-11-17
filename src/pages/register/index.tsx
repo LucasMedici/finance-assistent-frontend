@@ -4,7 +4,7 @@ import { style } from "./styles";
 import { fonts } from "../../global/fonts";
 import { themas } from "../../global/themes";
 
-import whatsCode from "../../assets/whatscode.png";
+import jorgeAcenando from "../../assets/jorge_acenando.png";
 
 export default function RegisterPage({navigation}: any) {
   const [email, setEmail] = useState('');
@@ -37,13 +37,13 @@ export default function RegisterPage({navigation}: any) {
         showsVerticalScrollIndicator={false}
       >
         <View style={style.header}>
-          <Image source={whatsCode} style={style.logo} resizeMode="contain" />
+          <Image source={jorgeAcenando} resizeMode="contain" style={style.jorgeAcenandoLogo} />
           <Text style={style.title}>Bem-Vindo!</Text>
           <Text style={style.subtitle}>Efetue seu Cadastro</Text>
         </View>
 
         <View style={style.main}>
-          <Text style={style.inputTitle}>Digite seu email:</Text>
+          <Text style={style.inputTitle}>Digite seu E-mail:</Text>
           <View style={style.inputBox}>
             <TextInput
               style={style.textInput}

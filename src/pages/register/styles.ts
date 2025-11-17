@@ -84,8 +84,10 @@ export const style = StyleSheet.create({
     alignItems: 'center',
     marginTop: 30,
   },
-  logo: {
+  jorgeAcenandoLogo: {
     width: 200,
     height: 200,
+    marginRight: 30,
+    transform: [{scaleX: -1}],
   },
 });
