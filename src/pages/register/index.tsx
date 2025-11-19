@@ -1,5 +1,6 @@
-import React, {useState} from "react"; 
-import {Text, View, Image, TextInput, KeyboardAvoidingView, Platform, ScrollView, TouchableOpacity, Alert} from "react-native";
+import React, {useState, useEffect} from "react"; 
+import {Text, View, Image, TextInput, KeyboardAvoidingView, Platform, ScrollView, TouchableOpacity, Alert, BackHandler} from "react-native";
+import { useFocusEffect } from '@react-navigation/native';
 import { style } from "./styles";
 import { fonts } from "../../global/fonts";
 import { themas } from "../../global/themes";
@@ -10,6 +11,23 @@ export default function RegisterPage({navigation}: any) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [number, setNumber] = useState('');
+
+  // Handler para o botão de voltar do celular - fecha o app
+  useFocusEffect(
+    React.useCallback(() => {
+      const onBackPress = () => {
+        BackHandler.exitApp();
+        return true;
+      };
+
+      const subscription = BackHandler.addEventListener(
+        'hardwareBackPress',
+        onBackPress,
+      );
+
+      return () => subscription.remove();
+    }, [])
+  );
 
   const handleRegister =  () => {
 

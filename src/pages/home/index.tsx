@@ -9,7 +9,9 @@ import {
   KeyboardAvoidingView,
   Platform,
   Pressable,
+  BackHandler,
 } from "react-native";
+import { useFocusEffect } from '@react-navigation/native';
 import { MaterialIcons } from '@expo/vector-icons';
 import { style } from "./styles";
 import { fonts } from "../../global/fonts";
@@ -61,6 +63,38 @@ export default function HomePage({ navigation }: any) {
   const [inputValue, setInputValue] = useState("");
   const [jorgeImage, setJorgeImage] = useState(getRandomThinkingImage());
   const flatListRef = useRef<FlatList>(null);
+
+  // Handler para o botão de voltar do celular - fecha o app (ignora Login e Register no histórico)
+  useFocusEffect(
+    React.useCallback(() => {
+      const onBackPress = () => {
+        // Obtém o histórico de navegação
+        const state = navigation.getState();
+        const routes = state?.routes || [];
+        
+        // Filtra rotas que não são Login ou Register
+        const validRoutes = routes.filter(
+          (route: any) => route.name !== 'Login' && route.name !== 'Register'
+        );
+        
+        // Se houver apenas Home (ou nenhuma rota válida além de Home), fecha o app
+        if (validRoutes.length <= 1) {
+          BackHandler.exitApp();
+          return true;
+        } else {
+          // Se houver outras rotas além de Home, volta normalmente
+          return false;
+        }
+      };
+
+      const subscription = BackHandler.addEventListener(
+        'hardwareBackPress',
+        onBackPress,
+      );
+
+      return () => subscription.remove();
+    }, [navigation])
+  );
 
   // Função para enviar mensagem
   const handleSendMessage = () => {
