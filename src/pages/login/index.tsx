@@ -20,8 +20,11 @@ export default function LoginPage({navigation}: any) {
           { text: "OK" },
         ]
       )
+      return
     }
 
+    
+    navigation.navigate('Home');
     //Autenticar aqui...
   }
 
