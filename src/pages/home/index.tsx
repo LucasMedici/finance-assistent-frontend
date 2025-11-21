@@ -10,6 +10,7 @@ import {
   Platform,
   Pressable,
   BackHandler,
+  ScrollView,
 } from "react-native";
 import { useFocusEffect } from '@react-navigation/native';
 import { MaterialIcons } from '@expo/vector-icons';
@@ -190,8 +191,8 @@ export default function HomePage({ navigation }: any) {
   return (
     <KeyboardAvoidingView
       style={{ flex: 1, backgroundColor: themas.colors.primary }}
-      behavior={Platform.OS === "ios" ? "padding" : "height"}
-      keyboardVerticalOffset={Platform.OS === "ios" ? 100 : 0}
+      behavior={Platform.OS === "ios" ? "padding" : "padding"}
+      keyboardVerticalOffset={0}
     >
       {/* Header com ícone de perfil */}
       <View style={style.topHeader}>

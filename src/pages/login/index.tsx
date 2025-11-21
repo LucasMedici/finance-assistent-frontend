@@ -49,12 +49,15 @@ export default function LoginPage({navigation}: any) {
   return (
     <KeyboardAvoidingView 
       style={{flex: 1, backgroundColor: themas.colors.primary}}
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      keyboardVerticalOffset={Platform.OS === 'ios' ? 100 : 0}
+      behavior={Platform.OS === 'ios' ? 'padding' : 'padding'}
+      keyboardVerticalOffset={0}
     >
       <ScrollView 
+        style={{flex: 1, backgroundColor: themas.colors.primary}}
         contentContainerStyle={style.scrollContainer}
         showsVerticalScrollIndicator={false}
+        scrollEnabled={true}
+        keyboardShouldPersistTaps="handled"
       >
         <View style={style.header}>
           <Image source={jorgeAcenando} resizeMode="contain" style={style.jorgeAcenandoLogo} />

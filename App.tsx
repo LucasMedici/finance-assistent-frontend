@@ -1,5 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { useLoadFonts, fonts } from './src/global/fonts';
 import { themas } from './src/global/themes';
 import { globalStyles } from './src/global/globalStyles';
@@ -16,6 +17,9 @@ export default function App() {
     return null;
   }
   return (
-    <Routes />
+    <SafeAreaView style={{ flex: 1, backgroundColor: themas.colors.primary }}>
+      <StatusBar barStyle="light-content" backgroundColor={themas.colors.primary} />
+      <Routes />
+    </SafeAreaView>
   );
 }
