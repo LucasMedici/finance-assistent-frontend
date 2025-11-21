@@ -11,6 +11,7 @@ import {
   Pressable,
   BackHandler,
   ScrollView,
+  Keyboard,
 } from "react-native";
 import { useFocusEffect } from '@react-navigation/native';
 import { MaterialIcons } from '@expo/vector-icons';
@@ -100,6 +101,9 @@ export default function HomePage({ navigation }: any) {
   // Função para enviar mensagem
   const handleSendMessage = () => {
     if (inputValue.trim() === "") return;
+
+    // Fecha o keyboard
+    Keyboard.dismiss();
 
     // Muda para uma das imagens de pensando aleatoriamente
     setJorgeImage(getRandomThinkingImage());
