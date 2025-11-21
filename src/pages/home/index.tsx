@@ -66,27 +66,13 @@ export default function HomePage({ navigation }: any) {
   const [jorgeImage, setJorgeImage] = useState(getRandomThinkingImage());
   const flatListRef = useRef<FlatList>(null);
 
-  // Handler para o botão de voltar do celular - fecha o app (ignora Login e Register no histórico)
+  // Handler para o botão de voltar do celular - fecha o app se estiver em Home
   useFocusEffect(
     React.useCallback(() => {
       const onBackPress = () => {
-        // Obtém o histórico de navegação
-        const state = navigation.getState();
-        const routes = state?.routes || [];
-        
-        // Filtra rotas que não são Login ou Register
-        const validRoutes = routes.filter(
-          (route: any) => route.name !== 'Login' && route.name !== 'Register'
-        );
-        
-        // Se houver apenas Home (ou nenhuma rota válida além de Home), fecha o app
-        if (validRoutes.length <= 1) {
-          BackHandler.exitApp();
-          return true;
-        } else {
-          // Se houver outras rotas além de Home, volta normalmente
-          return false;
-        }
+        // Fecha o app quando está na Home
+        BackHandler.exitApp();
+        return true;
       };
 
       const subscription = BackHandler.addEventListener(
@@ -198,13 +184,17 @@ export default function HomePage({ navigation }: any) {
       behavior={Platform.OS === "ios" ? "padding" : "padding"}
       keyboardVerticalOffset={0}
     >
-      {/* Header com ícone de perfil */}
+      {/* Header com título e ícone de perfil */}
       <View style={style.topHeader}>
+        <View style={style.headerTitleContainer}>
+          <Text style={style.headerTitle}>Chat</Text>
+          <Text style={style.headerSubtitle}>Fale com o Jorge</Text>
+        </View>
         <Pressable
           style={style.profileIconButton}
           onPress={handleProfilePress}
         >
-          <MaterialIcons name="person" size={35} color="#FFFFFF" />
+          <MaterialIcons name="person" size={28} color="#FFFFFF" />
         </Pressable>
       </View>
 

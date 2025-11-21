@@ -4,12 +4,28 @@ import { fonts } from '../../global/fonts';
 
 export const style = StyleSheet.create({
   topHeader: {
-    height: 100,
     backgroundColor: themas.colors.primary,
-    justifyContent: 'flex-end',
-    alignItems: 'flex-end',
-    paddingRight: 25,
-    paddingBottom: 15,
+    paddingHorizontal: 20,
+    paddingTop: 15,
+    paddingBottom: 10,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'flex-start',
+
+  },
+  headerTitleContainer: {
+    flex: 1,
+  },
+  headerTitle: {
+    fontFamily: fonts.bold,
+    fontSize: 24,
+    color: '#FFFFFF',
+  },
+  headerSubtitle: {
+    fontFamily: fonts.regular,
+    fontSize: 12,
+    color: 'rgba(255, 255, 255, 0.6)',
+    marginTop: 2,
   },
   profileIconButton: {
     padding: 8,
@@ -50,11 +66,6 @@ export const style = StyleSheet.create({
     width: 50,
     height: 50,
     marginBottom: 5,
-  },
-  headerTitle: {
-    fontFamily: fonts.medium,
-    fontSize: 16,
-    color: '#FFFFFF',
   },
   chatContainer: {
     flexGrow: 1,

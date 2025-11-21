@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
   ScrollView,
   TouchableOpacity,
   Dimensions,
+  BackHandler,
 } from "react-native";
+import { useFocusEffect } from '@react-navigation/native';
 import { MaterialIcons } from "@expo/vector-icons";
 import { BarChart } from "react-native-chart-kit";
 import { style } from "./styles";
@@ -14,6 +16,24 @@ import { themas } from "../../global/themes";
 export default function ReportsPage({ navigation }: any) {
   const screenWidth = Dimensions.get("window").width;
   const chartWidth = screenWidth - 30;
+
+  // Handler para o botão de voltar do celular - fecha o app se estiver em Reports
+  useFocusEffect(
+    React.useCallback(() => {
+      const onBackPress = () => {
+        // Fecha o app quando está em Reports
+        BackHandler.exitApp();
+        return true;
+      };
+
+      const subscription = BackHandler.addEventListener(
+        'hardwareBackPress',
+        onBackPress,
+      );
+
+      return () => subscription.remove();
+    }, [navigation])
+  );
 
   // Dados simples para o gráfico
   const chartData = {

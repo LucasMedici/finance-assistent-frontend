@@ -5,6 +5,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import LoginPage from '../pages/login';
 import RegisterPage from '../pages/register';
 import TabRoutes from './tab.routes';
+import ProfilePage from '../pages/profile';
 
 const Stack = createNativeStackNavigator();
 
@@ -15,6 +16,7 @@ export default function Routes() {
         <Stack.Screen name="Login" component={LoginPage} options={{ headerShown: false, animation: 'none' }}/>
         <Stack.Screen name="Register" component={RegisterPage} options={{ headerShown: false, animation: 'none' }} />
         <Stack.Screen name="MainApp" component={TabRoutes} options={{ headerShown: false, animation: 'none' }} />
+        <Stack.Screen name="Profile" component={ProfilePage} options={{ headerShown: false, animation: 'none' }} />
       </Stack.Navigator>
     </NavigationContainer>
   );
