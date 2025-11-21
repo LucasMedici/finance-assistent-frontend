@@ -1,9 +1,11 @@
 import React, {useState, useEffect} from "react"; 
 import {Text, View, Image, TextInput, KeyboardAvoidingView, Platform, ScrollView, TouchableOpacity, Alert, BackHandler} from "react-native";
 import { useFocusEffect } from '@react-navigation/native';
+import axios from "axios";
 import { style } from "./styles";
 import { fonts } from "../../global/fonts";
 import { themas } from "../../global/themes";
+
 
 import jorgeAcenando from "../../assets/jorge_acenando.png";
 
@@ -28,7 +30,7 @@ export default function LoginPage({navigation}: any) {
     }, [])
   );
 
-  const handleLogin =  () => {
+  const handleLogin = async () => {
 
     if(!email || !password) {
       Alert.alert(
@@ -38,13 +40,30 @@ export default function LoginPage({navigation}: any) {
           { text: "OK" },
         ]
       )
-      return
+      return;
     }
 
-    
-    navigation.navigate('MainApp');
-    //Autenticar aqui...
-  }
+    try {
+      const response = await axios.post(`${process.env.API_URL}/auth/login`, {
+        email,
+        password
+      });
+
+      if (response.status === 200) {
+        const token = response.data.token;
+        // Aqui você pode salvar o token no AsyncStorage ou em outro local seguro
+        navigation.navigate('MainApp');
+      }
+    } catch (error) {
+      Alert.alert(
+        "Erro ao efetuar login", 
+        "Verifique suas credenciais e tente novamente.",
+        [
+          { text: "OK" },
+        ]
+      );
+    }
+  };
 
   return (
     <KeyboardAvoidingView 
