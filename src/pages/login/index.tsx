@@ -42,7 +42,7 @@ export default function LoginPage({navigation}: any) {
     }
 
     
-    navigation.navigate('Home');
+    navigation.navigate('MainApp');
     //Autenticar aqui...
   }
 

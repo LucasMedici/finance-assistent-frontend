@@ -39,9 +39,11 @@ export default function RegisterPage({navigation}: any) {
           { text: "OK" },
         ]
       )
+      return;
     }
 
     //Registrar aqui...
+    navigation.navigate('MainApp');
   }
 
   return (

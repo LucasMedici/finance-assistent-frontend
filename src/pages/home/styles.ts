@@ -6,12 +6,10 @@ export const style = StyleSheet.create({
   topHeader: {
     height: 100,
     backgroundColor: themas.colors.primary,
-    justifyContent: 'center',
+    justifyContent: 'flex-end',
     alignItems: 'flex-end',
     paddingRight: 25,
-    paddingTop: 50,
-    flexDirection: 'row',
-    gap: 12,
+    paddingBottom: 15,
   },
   profileIconButton: {
     padding: 8,
@@ -141,7 +139,7 @@ export const style = StyleSheet.create({
     fontWeight: 'bold',
   },
   tabBarSpace: {
-    height: 80,
+    height: 20,
     backgroundColor: themas.colors.primary,
   },
 });
