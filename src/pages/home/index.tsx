@@ -158,6 +158,10 @@ export default function HomePage({ navigation }: any) {
     navigation.navigate('Profile');
   };
 
+  const handleReportsPress = () => {
+    navigation.navigate('Reports');
+  };
+
   const renderMessage = ({ item }: { item: Message }) => {
     const isUser = item.sender === "user";
 
@@ -196,6 +200,12 @@ export default function HomePage({ navigation }: any) {
     >
       {/* Header com ícone de perfil */}
       <View style={style.topHeader}>
+        <Pressable
+          style={style.profileIconButton}
+          onPress={handleReportsPress}
+        >
+          <MaterialIcons name="bar-chart" size={35} color="#FFFFFF" />
+        </Pressable>
         <Pressable
           style={style.profileIconButton}
           onPress={handleProfilePress}

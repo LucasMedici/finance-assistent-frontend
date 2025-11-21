@@ -10,6 +10,8 @@ export const style = StyleSheet.create({
     alignItems: 'flex-end',
     paddingRight: 25,
     paddingTop: 50,
+    flexDirection: 'row',
+    gap: 12,
   },
   profileIconButton: {
     padding: 8,
