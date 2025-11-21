@@ -8,6 +8,7 @@ import { themas } from "../../global/themes";
 
 
 import jorgeAcenando from "../../assets/jorge_acenando.png";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function LoginPage({navigation}: any) {
   const [email, setEmail] = useState('');
@@ -31,7 +32,6 @@ export default function LoginPage({navigation}: any) {
   );
 
   const handleLogin = async () => {
-
     if(!email || !password) {
       Alert.alert(
         "Campos obrigatórios", 
@@ -51,7 +51,7 @@ export default function LoginPage({navigation}: any) {
 
       if (response.status === 200) {
         const token = response.data.token;
-        // Aqui você pode salvar o token no AsyncStorage ou em outro local seguro
+        await AsyncStorage.setItem('userToken', token);
         navigation.navigate('MainApp');
       }
     } catch (error) {

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
@@ -6,17 +6,61 @@ import LoginPage from '../pages/login';
 import RegisterPage from '../pages/register';
 import TabRoutes from './tab.routes';
 import ProfilePage from '../pages/profile';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Stack = createNativeStackNavigator();
 
 export default function Routes() {
+  const [loading, setLoading] = useState(true);
+  const [userToken, setUserToken] = useState(null);
+
+  useEffect(() => {
+    const checkUserToken = async () => {
+      const token = await AsyncStorage.getItem('userToken');
+      setUserToken(!!token);
+      setLoading(false);
+    };
+    checkUserToken();
+  }, []);
+
+  if (loading) {
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <ActivityIndicator size="large" />
+      </View>
+    );
+  }
+
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Login">
-        <Stack.Screen name="Login" component={LoginPage} options={{ headerShown: false, animation: 'none' }}/>
-        <Stack.Screen name="Register" component={RegisterPage} options={{ headerShown: false, animation: 'none' }} />
-        <Stack.Screen name="MainApp" component={TabRoutes} options={{ headerShown: false, animation: 'none' }} />
-        <Stack.Screen name="Profile" component={ProfilePage} options={{ headerShown: false, animation: 'none' }} />
+      <Stack.Navigator screenOptions={{ headerShown: false, animation: 'none' }}>
+        {!userToken ? (
+          <>
+            <Stack.Screen
+              name="MainApp"
+              component={TabRoutes}
+              options={{ headerShown: false, animation: 'none' }}
+            />
+            <Stack.Screen
+              name="Profile"
+              component={ProfilePage}
+              options={{ headerShown: false, animation: 'none' }}
+            />
+          </>
+        ) : (
+          <>
+            <Stack.Screen
+              name="Login"
+              component={LoginPage}
+              options={{ headerShown: false, animation: 'none' }}
+            />
+            <Stack.Screen
+              name="Register"
+              component={RegisterPage}
+              options={{ headerShown: false, animation: 'none' }}
+            />
+          </>
+        )}
       </Stack.Navigator>
     </NavigationContainer>
   );
