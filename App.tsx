@@ -9,6 +9,7 @@ import Routes from './src/routes/stack.routes';
 import LoginPage from './src/pages/login';
 import RegisterPage from './src/pages/register';
 
+
 export default function App() {
   const fontsLoaded = useLoadFonts();
 

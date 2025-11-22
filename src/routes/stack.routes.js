@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { View, ActivityIndicator } from 'react-native';
 
 import LoginPage from '../pages/login';
 import RegisterPage from '../pages/register';
 import TabRoutes from './tab.routes';
 import ProfilePage from '../pages/profile';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { isTokenValid } from '../global/isTokenValid';
 
 const Stack = createNativeStackNavigator();
 
@@ -17,7 +19,16 @@ export default function Routes() {
   useEffect(() => {
     const checkUserToken = async () => {
       const token = await AsyncStorage.getItem('userToken');
-      setUserToken(!!token);
+
+      if(!token) {
+        setUserToken(false);
+        setLoading(false);
+        return
+      }
+
+      const validToken = isTokenValid(token);
+
+      setUserToken(validToken);
       setLoading(false);
     };
     checkUserToken();
@@ -34,7 +45,7 @@ export default function Routes() {
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false, animation: 'none' }}>
-        {!userToken ? (
+        {userToken ? (
           <>
             <Stack.Screen
               name="MainApp"
