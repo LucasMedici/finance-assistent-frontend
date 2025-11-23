@@ -44,34 +44,11 @@ export default function Routes() {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator screenOptions={{ headerShown: false, animation: 'none' }}>
-        {userToken ? (
-          <>
-            <Stack.Screen
-              name="MainApp"
-              component={TabRoutes}
-              options={{ headerShown: false, animation: 'none' }}
-            />
-            <Stack.Screen
-              name="Profile"
-              component={ProfilePage}
-              options={{ headerShown: false, animation: 'none' }}
-            />
-          </>
-        ) : (
-          <>
-            <Stack.Screen
-              name="Login"
-              component={LoginPage}
-              options={{ headerShown: false, animation: 'none' }}
-            />
-            <Stack.Screen
-              name="Register"
-              component={RegisterPage}
-              options={{ headerShown: false, animation: 'none' }}
-            />
-          </>
-        )}
+      <Stack.Navigator initialRouteName={userToken ? "MainApp" : "Login"} screenOptions={{ headerShown: false, animation: 'none' }}>
+        <Stack.Screen name="Login" component={LoginPage}/>
+        <Stack.Screen name="Register" component={RegisterPage}/>
+        <Stack.Screen name="MainApp" component={TabRoutes}/>
+        <Stack.Screen name="Profile" component={ProfilePage}/>
       </Stack.Navigator>
     </NavigationContainer>
   );
