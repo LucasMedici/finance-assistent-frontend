@@ -117,8 +117,7 @@ export default function RegisterPage({navigation}: any) {
               style={style.textInput}
               value={number}
               onChangeText={setNumber}
-              keyboardType="default"
-              secureTextEntry
+              keyboardType="number-pad"
               autoCapitalize="none" 
               selectionColor={themas.colors.primary}
             />

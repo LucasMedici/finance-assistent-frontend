@@ -23,6 +23,7 @@ import jorgePensando from "../../assets/jorge_pensando.png";
 import jorgeContando from "../../assets/jorge_contando.png";
 import jorgeContando2 from "../../assets/jorge_contando2.png";
 import jorgeDescansando from "../../assets/jorge_descansando.png";
+import { useLoadUserFromToken } from "../../global/loadUserFromToken";
 
 interface Message {
   id: string;
@@ -32,6 +33,7 @@ interface Message {
 }
 
 export default function HomePage({ navigation }: any) {
+  useLoadUserFromToken()
   // Função para obter mensagem de saudação baseada na hora
   const getGreeting = () => {
     const hour = new Date().getHours();

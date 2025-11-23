@@ -14,10 +14,17 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { style } from "./styles";
 import { themas } from "../../global/themes";
 
+import { useContext } from "react";
+import { AuthContext } from "../../context/AuthContext";
+
 export default function ProfilePage({ navigation }: any) {
   const [userName, setUserName] = useState("Usuário");
   const [isEditing, setIsEditing] = useState(false);
   const [tempName, setTempName] = useState(userName);
+
+  const authContext = useContext(AuthContext);
+  const { user } = authContext!;
+
 
   // Handler para o botão de voltar do celular - volta para a tela anterior
   useFocusEffect(
@@ -134,7 +141,7 @@ export default function ProfilePage({ navigation }: any) {
             </>
           ) : (
             <>
-              <Text style={style.userName}>{userName}</Text>
+              <Text style={style.userName}>{user.name}</Text>
 
               <TouchableOpacity
                 style={style.editButton}
@@ -157,7 +164,7 @@ export default function ProfilePage({ navigation }: any) {
         {/* Card de Email */}
         <View style={style.card}>
           <Text style={style.cardLabel}>Email</Text>
-          <Text style={style.cardValue}>usuario@example.com</Text>
+          <Text style={style.cardValue}>{user.email}</Text>
         </View>
 
         {/* Card de Versão */}

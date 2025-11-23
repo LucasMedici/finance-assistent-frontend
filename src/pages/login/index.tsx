@@ -6,7 +6,7 @@ import Constants from "expo-constants";
 import { style } from "./styles";
 import { fonts } from "../../global/fonts";
 import { themas } from "../../global/themes";
-
+import { loadUserFromToken } from "../../global/loadUserFromToken";
 
 import jorgeAcenando from "../../assets/jorge_acenando.png";
 import AsyncStorage from "@react-native-async-storage/async-storage";
