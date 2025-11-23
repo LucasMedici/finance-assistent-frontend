@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import { useFocusEffect } from '@react-navigation/native';
 import { MaterialIcons } from "@expo/vector-icons";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { style } from "./styles";
 import { themas } from "../../global/themes";
 
@@ -50,6 +51,31 @@ export default function ProfilePage({ navigation }: any) {
   const handleCancel = () => {
     setTempName(userName);
     setIsEditing(false);
+  };
+
+  const handleLogout = async () => {
+    Alert.alert(
+      "Confirmar Saída",
+      "Tem certeza de que deseja sair?",
+      [
+        {
+          text: "Cancelar",
+          style: "cancel",
+        },
+        {
+          text: "Sair",
+          style: "destructive",
+          onPress: async () => {
+            try {
+              await AsyncStorage.removeItem('userToken');
+              navigation.navigate('Login');
+            } catch (error) {
+              Alert.alert("Erro", "Não foi possível fazer logout");
+            }
+          },
+        },
+      ]
+    );
   };
 
   return (
@@ -139,6 +165,15 @@ export default function ProfilePage({ navigation }: any) {
           <Text style={style.cardLabel}>Versão do App</Text>
           <Text style={style.cardValue}>1.0.0</Text>
         </View>
+
+        {/* Botão de Logout */}
+        <TouchableOpacity
+          style={style.logoutButton}
+          onPress={handleLogout}
+        >
+          <MaterialIcons name="logout" size={20} color="#FFFFFF" />
+          <Text style={style.logoutButtonText}>Sair da Conta</Text>
+        </TouchableOpacity>
       </View>
 
       <View style={{ height: 80 }} />

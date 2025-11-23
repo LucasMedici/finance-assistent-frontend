@@ -139,4 +139,21 @@ export const style = StyleSheet.create({
     fontSize: 12,
     color: "#FFFFFF",
   },
+
+  logoutButton: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 10,
+    backgroundColor: "#FF4444",
+    paddingVertical: 14,
+    borderRadius: 10,
+    marginTop: 20,
+  },
+
+  logoutButtonText: {
+    fontFamily: fonts.bold,
+    fontSize: 14,
+    color: "#FFFFFF",
+  },
 });
