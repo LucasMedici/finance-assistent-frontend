@@ -1,16 +1,19 @@
 import React, {useState, useEffect} from "react"; 
 import {Text, View, Image, TextInput, KeyboardAvoidingView, Platform, ScrollView, TouchableOpacity, Alert, BackHandler} from "react-native";
 import { useFocusEffect } from '@react-navigation/native';
+import Constants from "expo-constants";
 import { style } from "./styles";
 import { fonts } from "../../global/fonts";
 import { themas } from "../../global/themes";
 
 import jorgeAcenando from "../../assets/jorge_acenando.png";
+import axios from "axios";
 
 export default function RegisterPage({navigation}: any) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [number, setNumber] = useState('');
+  const API_URL = Constants.expoConfig?.extra?.API_URL as string;
 
   // Handler para o botão de voltar do celular - fecha o app
   useFocusEffect(
@@ -29,7 +32,7 @@ export default function RegisterPage({navigation}: any) {
     }, [])
   );
 
-  const handleRegister =  () => {
+  const handleRegister =  async () => {
 
     if(!email || !password || !number) {
       Alert.alert(
@@ -42,8 +45,25 @@ export default function RegisterPage({navigation}: any) {
       return;
     }
 
-    //Registrar aqui...
-    navigation.navigate('MainApp');
+    try{
+      const response = await axios.post(`${API_URL}/auth/signup`, {
+          email,
+          password,
+          phone: number
+        });
+
+        if (response.status === 201) {
+          navigation.navigate('Login');
+        }
+    } catch (error) {
+      Alert.alert(
+        "Erro ao efetuar Registro", 
+        "Valide os dados e tente novamente.",
+        [
+          { text: "OK" },
+        ]
+      );
+    }
   }
 
   return (

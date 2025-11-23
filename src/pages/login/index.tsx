@@ -47,7 +47,6 @@ export default function LoginPage({navigation}: any) {
     }
 
     try {
-      console.log(`${API_URL}/auth/login`)
       const response = await axios.post(`${API_URL}/auth/login`, {
         email,
         password
