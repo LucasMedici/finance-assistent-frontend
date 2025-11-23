@@ -6,7 +6,13 @@ export async function isTokenValid(token: string) {
         const decodedToken = jwtDecode(token);
 
         const currentTime = Date.now() / 1000; // Tempo atual em segundos
-        return decodedToken.exp && decodedToken.exp > currentTime;
+
+        if (decodedToken.exp && decodedToken.exp < currentTime) {
+            await AsyncStorage.removeItem('userToken');
+            return false;
+        }
+
+        return decodedToken.exp
     } catch (error) {
         await AsyncStorage.removeItem('userToken');
         return false;
