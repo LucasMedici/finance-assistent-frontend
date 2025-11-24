@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -16,11 +16,14 @@ import { themas } from "../../global/themes";
 
 import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
+import axios from "axios";
+import Constants from "expo-constants";
 
 export default function ProfilePage({ navigation }: any) {
   const [userName, setUserName] = useState("Usuário");
   const [isEditing, setIsEditing] = useState(false);
   const [tempName, setTempName] = useState(userName);
+  const API_URL = Constants.expoConfig?.extra?.API_URL as string;
 
   const authContext = useContext(AuthContext);
   const { user } = authContext!;
@@ -44,16 +47,28 @@ export default function ProfilePage({ navigation }: any) {
     }, [navigation])
   );
 
-  const handleSave = () => {
+  const handleSave = async () => {
     if (tempName.trim() === "") {
       Alert.alert("Erro", "O nome não pode estar vazio");
       return;
     }
 
-    setUserName(tempName);
-    setIsEditing(false);
-    Alert.alert("Sucesso", "Nome atualizado com sucesso!");
-  };
+    try{
+      const response = await axios.put(`${API_URL}/user/${user.id}`, {
+        name: tempName,
+      });
+
+      if (response.status === 200) {
+        setUserName(tempName);
+        setIsEditing(false);
+        Alert.alert("Sucesso", "Nome atualizado com sucesso!");
+      }
+
+    } catch (error) {
+      Alert.alert("Erro", "Não foi possível atualizar o nome");
+    }
+  }
+
 
   const handleCancel = () => {
     setTempName(userName);
@@ -84,6 +99,25 @@ export default function ProfilePage({ navigation }: any) {
       ]
     );
   };
+
+
+  const handleGetUsername = async () => {
+     try{
+      const response = await axios.get(`${API_URL}/user/${user.id}`);
+
+      if (response.status === 200) {
+        setUserName(response.data.name);
+        setTempName(response.data.name);
+      }
+
+    } catch (error) {
+      return
+    }
+  }
+
+  useEffect(() => {
+    handleGetUsername();
+  }, []);
 
   return (
     <ScrollView style={style.container} showsVerticalScrollIndicator={false}>
@@ -141,7 +175,7 @@ export default function ProfilePage({ navigation }: any) {
             </>
           ) : (
             <>
-              <Text style={style.userName}>{user.name}</Text>
+              <Text style={style.userName}>{userName}</Text>
 
               <TouchableOpacity
                 style={style.editButton}

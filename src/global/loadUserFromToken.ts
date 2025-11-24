@@ -28,7 +28,6 @@ export function useLoadUserFromToken() {
         name: decodedToken.name
       };
       setUser(userLogged);
-      console.log("User loaded from token:", userLogged);
     };
 
     loadUser();
