@@ -16,14 +16,12 @@ import { themas } from "../../global/themes";
 
 import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
-import axios from "axios";
-import Constants from "expo-constants";
+import { api } from "../../services/api";
 
 export default function ProfilePage({ navigation }: any) {
   const [userName, setUserName] = useState("Usuário");
   const [isEditing, setIsEditing] = useState(false);
   const [tempName, setTempName] = useState(userName);
-  const API_URL = Constants.expoConfig?.extra?.API_URL as string;
 
   const authContext = useContext(AuthContext);
   const { user } = authContext!;
@@ -54,7 +52,7 @@ export default function ProfilePage({ navigation }: any) {
     }
 
     try{
-      const response = await axios.put(`${API_URL}/user/${user.id}`, {
+      const response = await api.put(`/user/${user.id}`, {
         name: tempName,
       });
 
@@ -103,7 +101,7 @@ export default function ProfilePage({ navigation }: any) {
 
   const handleGetUsername = async () => {
      try{
-      const response = await axios.get(`${API_URL}/user/${user.id}`);
+      const response = await api.get(`/user/${user.id}`);
 
       if (response.status === 200) {
         setUserName(response.data.name);

@@ -1,19 +1,17 @@
 import React, {useState, useEffect} from "react"; 
 import {Text, View, Image, TextInput, KeyboardAvoidingView, Platform, ScrollView, TouchableOpacity, Alert, BackHandler} from "react-native";
 import { useFocusEffect } from '@react-navigation/native';
-import Constants from "expo-constants";
 import { style } from "./styles";
 import { fonts } from "../../global/fonts";
 import { themas } from "../../global/themes";
 
 import jorgeAcenando from "../../assets/jorge_acenando.png";
-import axios from "axios";
+import { api } from "../../services/api";
 
 export default function RegisterPage({navigation}: any) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [number, setNumber] = useState('');
-  const API_URL = Constants.expoConfig?.extra?.API_URL as string;
 
   // Handler para o botão de voltar do celular - fecha o app
   useFocusEffect(
@@ -46,7 +44,7 @@ export default function RegisterPage({navigation}: any) {
     }
 
     try{
-      const response = await axios.post(`${API_URL}/auth/signup`, {
+      const response = await api.post(`/auth/signup`, {
           email,
           password,
           phone: number

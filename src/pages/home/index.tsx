@@ -28,8 +28,7 @@ import { useLoadUserFromToken } from "../../global/loadUserFromToken";
 import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { ConnectionContext } from "../../context/ConectionContext";
-import axios from "axios";
-import Constants from "expo-constants";
+import { api } from "../../services/api";
 
 interface Message {
   id: string;
@@ -43,7 +42,6 @@ export default function HomePage({ navigation }: any) {
   const authContext = useContext(AuthContext);
   const { user } = authContext!;
   const { isConnected } = useContext(ConnectionContext)
-  const API_URL = Constants.expoConfig?.extra?.API_URL as string;
   useLoadUserFromToken()
 
 
@@ -135,7 +133,7 @@ export default function HomePage({ navigation }: any) {
     } else {
       console.log("Enviando mensagem ao webhook: ", userMessage);
       try {
-        const response = await axios.post(`${API_URL}/webhook/messages`, {
+        const response = await api.post(`/webhook/messages`, {
           userMessage
         })
         if(response.status === 200) {
