@@ -5,6 +5,7 @@ import { themas } from './src/global/themes';
 import Routes from './src/routes/stack.routes';
 
 import { AuthProvider } from './src/context/AuthContext';
+import { ConnectionProvider } from './src/context/ConectionContext';
 
 
 
@@ -16,11 +17,14 @@ export default function App() {
   }
 
   return (
-    <AuthProvider>
-      <SafeAreaView style={{ flex: 1, backgroundColor: themas.colors.primary }}>
-        <StatusBar backgroundColor={themas.colors.primary} />
-        <Routes />
-      </SafeAreaView>
-    </AuthProvider>
+    <ConnectionProvider>
+      <AuthProvider>
+        <SafeAreaView style={{ flex: 1, backgroundColor: themas.colors.primary }}>
+          <StatusBar backgroundColor={themas.colors.primary} />
+          <Routes />
+        </SafeAreaView>
+      </AuthProvider>
+    </ConnectionProvider>
+    
   );
 }

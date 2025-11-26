@@ -12,6 +12,7 @@ import {
   BackHandler,
   ScrollView,
   Keyboard,
+  Alert,
 } from "react-native";
 import { useFocusEffect } from '@react-navigation/native';
 import { MaterialIcons } from '@expo/vector-icons';
@@ -24,16 +25,28 @@ import jorgeContando from "../../assets/jorge_contando.png";
 import jorgeContando2 from "../../assets/jorge_contando2.png";
 import jorgeDescansando from "../../assets/jorge_descansando.png";
 import { useLoadUserFromToken } from "../../global/loadUserFromToken";
+import { useContext } from "react";
+import { AuthContext } from "../../context/AuthContext";
+import { ConnectionContext } from "../../context/ConectionContext";
+import axios from "axios";
+import Constants from "expo-constants";
 
 interface Message {
   id: string;
   text: string;
   sender: "user" | "bot";
   timestamp: Date;
+  userPhone?: string;
 }
 
 export default function HomePage({ navigation }: any) {
+  const authContext = useContext(AuthContext);
+  const { user } = authContext!;
+  const { isConnected } = useContext(ConnectionContext)
+  const API_URL = Constants.expoConfig?.extra?.API_URL as string;
   useLoadUserFromToken()
+
+
   // Função para obter mensagem de saudação baseada na hora
   const getGreeting = () => {
     const hour = new Date().getHours();
@@ -87,7 +100,7 @@ export default function HomePage({ navigation }: any) {
   );
 
   // Função para enviar mensagem
-  const handleSendMessage = () => {
+  const handleSendMessage = async() => {
     if (inputValue.trim() === "") return;
 
     // Fecha o keyboard
@@ -102,6 +115,7 @@ export default function HomePage({ navigation }: any) {
       text: inputValue,
       sender: "user",
       timestamp: new Date(),
+      userPhone: user?.phone || "unknown",
     };
 
     setMessages((prev) => [...prev, userMessage]);
@@ -113,16 +127,31 @@ export default function HomePage({ navigation }: any) {
       setJorgeImage(getRandomCountingImage());
     }, 1000);
 
-    // Muda para descansando e mantém por mais tempo
-    const timer2 = setTimeout(() => {
-      setJorgeImage(jorgeDescansando);
-    }, 2500);
+    // Enviar mensagem ao webhook ou a fila de mensagem ao depender do status e receber resposta do bot
+    let msgResposta = "Hmm..."
+    
+    if (!isConnected) {
+      msgResposta = "Você está offline. Sua mensagem será enviada quando a conexão for restabelecida."
+    } else {
+      console.log("Enviando mensagem ao webhook: ", userMessage);
+      try {
+        const response = await axios.post(`${API_URL}/webhook/messages`, {
+          userMessage
+        })
+        if(response.status === 200) {
+          msgResposta = "Entendi sua mensagem. Solicitação processada!."
+        }
+      } catch(error) {
+        msgResposta = "Desculpe, ocorreu um erro ao processar sua solicitação, contate o suporte."
+        console.log("Erro ao enviar mensagem ao webhook: ", error);
+      }
+    }
 
     // Simula resposta do bot e volta para pensando após descansando
     const timer3 = setTimeout(() => {
       const botMessage: Message = {
         id: (Date.now() + 1).toString(),
-        text: "Entendi sua mensagem. Estou processando sua solicitação financeira.",
+        text: msgResposta,
         sender: "bot",
         timestamp: new Date(),
       };
@@ -130,11 +159,10 @@ export default function HomePage({ navigation }: any) {
 
       // Volta para uma das imagens de pensando aleatoriamente
       setJorgeImage(getRandomThinkingImage());
-    }, 5000);
+    }, 2000);
 
     return () => {
       clearTimeout(timer1);
-      clearTimeout(timer2);
       clearTimeout(timer3);
     };
   };
