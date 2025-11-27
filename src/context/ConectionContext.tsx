@@ -1,5 +1,6 @@
 import React, {createContext, useEffect, useState} from "react";
 import NetInfo from "@react-native-community/netinfo";
+import { processOfflineQueue } from "../global/offlineQueue";
 
 export const ConnectionContext = createContext({
     isConnected: true,
@@ -17,6 +18,12 @@ export function ConnectionProvider({children}: any) {
             unsubscribe();
         };
     })
+
+    useEffect(() => {
+        if(isConnected) {
+            processOfflineQueue()
+        }
+    }, [isConnected])
 
     return (
         <ConnectionContext.Provider value={{isConnected}}>

@@ -29,6 +29,7 @@ import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { ConnectionContext } from "../../context/ConectionContext";
 import { api } from "../../services/api";
+import { addToOfflineQueue } from "../../global/offlineQueue";
 
 interface Message {
   id: string;
@@ -129,9 +130,15 @@ export default function HomePage({ navigation }: any) {
     let msgResposta = "Hmm..."
     
     if (!isConnected) {
-      msgResposta = "Você está offline. Sua mensagem será enviada quando a conexão for restabelecida."
+      try{
+        await addToOfflineQueue(userMessage)
+        msgResposta = "Você está offline. Sua mensagem foi salva e será enviada quando a conexão for restabelecida."
+      } catch(error) {
+        msgResposta = "Tivemos problemas ao enviar sua mensagem para a fila OFFLINE. Reenvie quando estiver online."
+        console.log("Erro ao enviar mensagem a fila OFFLINE: ", error);
+      }
+      
     } else {
-      console.log("Enviando mensagem ao webhook: ", userMessage);
       try {
         const response = await api.post(`/webhook/messages`, {
           userMessage
