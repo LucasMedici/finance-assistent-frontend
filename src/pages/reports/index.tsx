@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -6,36 +6,54 @@ import {
   TouchableOpacity,
   Dimensions,
   BackHandler,
+  ActivityIndicator,
 } from "react-native";
 import { useFocusEffect } from "@react-navigation/native";
-import { MaterialIcons } from "@expo/vector-icons";
 import { BarChart } from "react-native-chart-kit";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { style } from "./styles";
 import { themas } from "../../global/themes";
+import { api } from "../../services/api";
 
 export default function ReportsPage({ navigation }: any) {
   const screenWidth = Dimensions.get("window").width;
-  const chartWidth = screenWidth - 30;
 
   const [startDate, setStartDate] = useState(
-    new Date(new Date().getFullYear(), new Date().getMonth(), 1),
+    new Date(new Date().getFullYear(), new Date().getMonth(), 1)
   );
   const [endDate, setEndDate] = useState(new Date());
   const [showStartPicker, setShowStartPicker] = useState(false);
   const [showEndPicker, setShowEndPicker] = useState(false);
-  const [lastEntries] = useState([
-    { id: 1, category: "Mercado", amount: 120, date: "2025-12-01" },
-    { id: 2, category: "Hotel", amount: 300, date: "2025-12-02" },
-    { id: 3, category: "Transporte", amount: 50, date: "2025-12-03" },
-    { id: 4, category: "Refeições", amount: 80, date: "2025-12-03" },
-    { id: 5, category: "Outro", amount: 40, date: "2025-12-03" },
-    { id: 6, category: "Carro", amount: 600, date: "2025-12-03" },
-  ]);
 
-  // Handler para o botão de voltar do celular - fecha o app se estiver em Reports
+  const [entries, setEntries] = useState<any[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+
+  // 🔥 FUNÇÃO QUE CHAMA SUA API
+  const fetchTransactions = async () => {
+    try {
+      setIsLoading(true);
+
+      const payload = {
+        startDate: startDate.toISOString().split("T")[0],
+        endDate: endDate.toISOString().split("T")[0],
+      };
+
+      console.log(startDate)
+      console.log(endDate)
+
+      const response = await api.get('/transactions', { params: payload });
+      console.log(response.data)
+      setEntries(response.data || []);
+    } catch (err) {
+      console.log("Erro ao buscar transações:", err);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  // 🔥 BUSCA QUANDO A PÁGINA ABRE
   useFocusEffect(
     React.useCallback(() => {
       const onBackPress = () => {
@@ -43,20 +61,27 @@ export default function ReportsPage({ navigation }: any) {
         return true;
       };
 
+      fetchTransactions(); // busca ao entrar
+
       const subscription = BackHandler.addEventListener(
         "hardwareBackPress",
-        onBackPress,
+        onBackPress
       );
 
       return () => subscription.remove();
-    }, [navigation]),
+    }, [])
   );
 
-  // Função para agrupar dados por categoria
+  // 🔥 BUSCA QUANDO AS DATAS MUDAM
+  useEffect(() => {
+    fetchTransactions();
+  }, [startDate, endDate]);
+
+  // 🔥 Gera dados do gráfico dinamicamente
   const getChartDataByCategory = () => {
     const categoryMap = new Map<string, number>();
 
-    lastEntries.forEach((entry) => {
+    entries.forEach((entry) => {
       const current = categoryMap.get(entry.category) || 0;
       categoryMap.set(entry.category, current + entry.amount);
     });
@@ -66,29 +91,20 @@ export default function ReportsPage({ navigation }: any) {
 
     return {
       labels,
-      datasets: [
-        {
-          data,
-        },
-      ],
+      datasets: [{ data }],
     };
   };
 
-  // Dados dinâmicos baseados nas entradas
   const chartData = getChartDataByCategory();
 
   const handleStartDateChange = (event: any, selectedDate?: Date) => {
     setShowStartPicker(false);
-    if (selectedDate) {
-      setStartDate(selectedDate);
-    }
+    if (selectedDate) setStartDate(selectedDate);
   };
 
   const handleEndDateChange = (event: any, selectedDate?: Date) => {
     setShowEndPicker(false);
-    if (selectedDate) {
-      setEndDate(selectedDate);
-    }
+    if (selectedDate) setEndDate(selectedDate);
   };
 
   return (
@@ -141,54 +157,68 @@ export default function ReportsPage({ navigation }: any) {
       {/* Gráfico */}
       <View style={style.chartContainer}>
         <Text style={style.chartTitle}>Gastos por Categoria</Text>
-        <ScrollView
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          style={style.chartScrollContainer}
-        >
-          <BarChart
-            data={chartData}
-            width={Math.max(chartData.labels.length * 80, screenWidth - 100)}
-            height={200}
-            yAxisLabel="R$ "
-            yAxisSuffix=""
-            chartConfig={{
-              backgroundColor: themas.colors.primary,
-              backgroundGradientFrom: themas.colors.primary,
-              backgroundGradientTo: themas.colors.primary,
-              color: () => themas.colors.secondary,
-              labelColor: () => "#FFFFFF",
-              decimalPlaces: 0,
-              propsForBackgroundLines: {
-                strokeWidth: "1",
-                stroke: "rgba(141, 198, 62, 0.2)",
-                strokeDasharray: "5,5",
-              },
-              propsForLabels: {
-                fontSize: 10,
-              },
-            }}
+
+        {isLoading ? (
+          // 🔥 LOADING NO LUGAR DO GRÁFICO
+          <View
             style={{
-              borderRadius: 8,
-              marginVertical: 8,
+              height: 200,
+              justifyContent: "center",
+              alignItems: "center",
             }}
-            withInnerLines={true}
-            withVerticalLabels={true}
-            withHorizontalLabels={true}
-            fromZero={true}
-            segments={3}
-          />
-        </ScrollView>
+          >
+            <ActivityIndicator size="large" color={themas.colors.secondary} />
+          </View>
+        ) : entries.length === 0 ? (
+          // 🔥 SEM DADOS
+          <Text style={{ textAlign: "center", paddingVertical: 20, color: '#ffffff' }}>
+            Nenhuma transação encontrada no período.
+          </Text>
+        ) : (
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            style={style.chartScrollContainer}
+          >
+            <BarChart
+              data={chartData}
+              width={Math.max(chartData.labels.length * 80, screenWidth - 100)}
+              height={200}
+              yAxisLabel="R$ "
+              yAxisSuffix=""
+              chartConfig={{
+                backgroundColor: themas.colors.primary,
+                backgroundGradientFrom: themas.colors.primary,
+                backgroundGradientTo: themas.colors.primary,
+                color: () => themas.colors.secondary,
+                labelColor: () => "#FFFFFF",
+                decimalPlaces: 0,
+                propsForBackgroundLines: {
+                  strokeWidth: "1",
+                  stroke: "rgba(141, 198, 62, 0.2)",
+                  strokeDasharray: "5,5",
+                },
+                propsForLabels: { fontSize: 10 },
+              }}
+              style={{ borderRadius: 8, marginVertical: 8 }}
+              withInnerLines={true}
+              fromZero={true}
+              segments={3}
+            />
+          </ScrollView>
+        )}
       </View>
 
       {/* Últimas entradas */}
       <View style={style.lastEntriesContainer}>
         <Text style={style.lastEntriesTitle}>Últimas Entradas</Text>
-        {lastEntries.map((entry) => (
+
+        {entries.slice(0, 10).map((entry) => (
           <View key={entry.id} style={style.lastEntryItem}>
             <Text style={style.lastEntryText}>
               {entry.category} - R$ {entry.amount.toLocaleString("pt-BR")} (
-              {entry.date})
+              {format(new Date(entry.createdAt), "dd/MM/yyyy")}
+              )
             </Text>
           </View>
         ))}
