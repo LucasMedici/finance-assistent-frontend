@@ -40,11 +40,8 @@ export default function ReportsPage({ navigation }: any) {
         endDate: endDate.toISOString().split("T")[0],
       };
 
-      console.log(startDate)
-      console.log(endDate)
 
       const response = await api.get('/transactions', { params: payload });
-      console.log(response.data)
       setEntries(response.data || []);
     } catch (err) {
       console.log("Erro ao buscar transações:", err);
