@@ -1,33 +1,70 @@
-# 📱 Jorge - Assistent (Frontend)
 
-Aplicativo móvel que conecta você ao seu assistente financeiro **Jorge**, permitindo registrar gastos e solicitar relatórios de forma natural — apenas conversando.
+# 📱 Finance Assistant App - Frontend (React Native + TypeScript)
 
-> Exemplo:  
-> “Anote um gasto de 120 reais com restaurante.”  
-> “Mostre meus gastos da última semana.”
+## 🚀 Overview
+A mobile app for managing personal finances with an AI-powered chat assistant.  
+Persistent login, offline message queue, and interactive charts.  
 
-O app envia as mensagens para o backend do **Jorge - Assistent**, que processa, armazena e responde com as informações solicitadas.
+## 🛠 Tech Stack
+- **Framework:** React Native + TypeScript  
+- **Storage:** AsyncStorage (JWT, messages)  
+- **Network:** Axios / Fetch API  
+- **Connectivity:** `@react-native-community/netinfo`  
+- **UI:** FlatList for chat, charts for reports  
 
-## 🚀 Tecnologias
+## 🗂 Project Structure
+```
+/src
+  /components   🔹 reusable UI components
+  /screens      🔹 Login, Chat, Reports
+  /services     🔹 API calls
+  /store        🔹 State management
+  /utils        🔹 Helpers (date, validation, etc.)
+```
 
-- React Native  
-- Expo  
-- TypeScript  
-- Axios (para comunicação com o backend)  
-- React Navigation  
+## 🔑 Features
 
-## 📦 Execução local
+### 1️⃣ Login & Auth
+- Email & password login  
+- Remember me ✅ (AsyncStorage)  
+- Auto-session check on app launch  
+- JWT stored securely  
 
-1. **Instale as dependências:**
-   ```bash
-   npm install
-   
-2. **Crie um arquivo .env na raiz do projeto com as variáveis de ambiente:**
-   ```bash
-   API_BASE_URL=http://localhost:3000
-   ```
-3. **Inicie o servidor de desenvolvimento:**
-   ```bash
-   npx expo start
-   ```
-4. **Abra o aplicativo no celular usando o app Expo Go (Android/iOS) e escaneie o QR Code exibido no terminal ou navegador.**
+### 2️⃣ Chat Interface
+- Conversation like ChatGPT / WhatsApp 💬  
+- Scrollable messages (FlatList)  
+- User vs bot message bubbles  
+- Local message history  
+
+### 3️⃣ Sending Messages
+- API: `POST /messages`  
+- Payload: `{
+  "id": "msg-12345",
+  "userPhone": "5511999999999",
+  "userMessage": {
+    "text": "gastei 50 reais em comida"
+  }
+}`  
+- Bot reply: standard confirmation message received ✅
+
+### 4️⃣ Offline Queue
+- Detect network with `NetInfo` 📶  
+- Messages saved with `"pending"` status  
+- Auto resend on reconnect 🔄  
+
+### 5️⃣ Secure API
+- `Authorization: Bearer <token>`  
+- Token auto-refresh  
+- Stored securely in AsyncStorage  
+
+### 6️⃣ Reports
+- Spending by category 📊  
+- Last transactions list  
+- Date range filter (default: 1st of month → today)  
+
+## ⚡ Quick Start
+```bash
+npm install
+# make sure the finance-assistent-frontend is running and BACKEND_URL is set in .env frontend
+npm start
+```
