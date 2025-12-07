@@ -73,6 +73,13 @@ npm install
 npm start
 ```
 
+## 🖼 App Screenshots
+Here are some screenshots of the Finance Assistant app:
+
+| Login Screen                 | Chat Screen                | Reports Screen                   |
+| ---------------------------- | -------------------------- | -------------------------------- |
+| ![Login](./doc-images/jorge_login.PNG) | ![Chat](./doc-images/jorge_chat.PNG) | ![Reports](./doc-images/jorge_reports.PNG) |
+
 ---
 
 # 📱 Frontend App - PT-BR (Resumo)
