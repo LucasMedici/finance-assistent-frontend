@@ -3,7 +3,7 @@ import "dotenv/config";
 export default {
   expo: {
     name: "Jorge Assistent",
-    slug: "finance-assistent",
+    slug: "finance-assistent-frontend",
     icon: "./src/assets/app-icon/icon.png",
     splash: {
       image: "./src/assets/app-icon/play_store_512.png",
