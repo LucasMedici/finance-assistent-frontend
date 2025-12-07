@@ -251,4 +251,29 @@ export const style = StyleSheet.create({
     fontSize: 12,
     color: themas.colors.secondary,
   },
+
+  totalContainer: {
+    marginHorizontal: 15,
+    marginVertical: 15,
+    backgroundColor: 'rgba(141, 198, 62, 0.15)',
+    borderRadius: 12,
+    paddingHorizontal: 20,
+    paddingVertical: 20,
+    borderWidth: 1,
+    borderColor: 'rgba(141, 198, 62, 0.3)',
+    alignItems: 'center',
+  },
+
+  totalLabel: {
+    fontFamily: fonts.medium,
+    fontSize: 12,
+    color: 'rgba(255, 255, 255, 0.7)',
+    marginBottom: 8,
+  },
+
+  totalAmount: {
+    fontFamily: fonts.bold,
+    fontSize: 28,
+    color: themas.colors.secondary,
+  },
 });

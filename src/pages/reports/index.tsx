@@ -94,6 +94,9 @@ export default function ReportsPage({ navigation }: any) {
 
   const chartData = getChartDataByCategory();
 
+  // 🔥 CALCULA A SOMA TOTAL DE GASTOS
+  const totalExpenses = entries.reduce((sum, entry) => sum + entry.amount, 0);
+
   const handleStartDateChange = (event: any, selectedDate?: Date) => {
     setShowStartPicker(false);
     if (selectedDate) setStartDate(selectedDate);
@@ -149,6 +152,14 @@ export default function ReportsPage({ navigation }: any) {
             onChange={handleEndDateChange}
           />
         )}
+      </View>
+
+      {/* Card de Total de Gastos */}
+      <View style={style.totalContainer}>
+        <Text style={style.totalLabel}>Total de Gastos</Text>
+        <Text style={style.totalAmount}>
+          R$ {totalExpenses.toLocaleString("pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+        </Text>
       </View>
 
       {/* Gráfico */}
