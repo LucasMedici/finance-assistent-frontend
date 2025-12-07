@@ -37,7 +37,7 @@ Persistent login, offline message queue, and interactive charts.
 - Local message history  
 
 ### 3️⃣ Sending Messages
-- API: `POST /messages`  
+- API: `POST webhook/messages`  
 - Payload: `{
   "id": "msg-12345",
   "userPhone": "5511999999999",
@@ -86,7 +86,7 @@ Login persistente, mensagens offline e gráficos interativos.
 ## 🔑 Funcionalidades
 - **Login & Auth:** email/senha, lembrar-me ✅, sessão automática  
 - **Chat:** conversa estilo ChatGPT 💬, histórico local, bolhas usuário/bot  
-- **Envio Mensagens:** `POST /chat`, bot responde confirmação ✅  
+- **Envio Mensagens:** `POST /webhook/messages`, bot responde confirmação ✅  
 - **Offline:** fila de mensagens ⏳ → ✅, reenvio automático 🔄  
 - **API Segura:** token no header `Authorization`, renovação automática  
 - **Relatórios:** gastos por categoria 📊, últimas transações, filtro de datas  
