@@ -65,6 +65,36 @@ Persistent login, offline message queue, and interactive charts.
 ## ⚡ Quick Start
 ```bash
 npm install
-# make sure the finance-assistent-frontend is running and BACKEND_URL is set in .env frontend
+# make sure the finance-assistent-frontend is running and API_URL is set in .env frontend
 npm start
 ```
+
+---
+
+# 📱 Frontend App - PT-BR (Resumo)
+
+## 🚀 Visão Geral
+App de finanças com assistente via chat AI.  
+Login persistente, mensagens offline e gráficos interativos.  
+
+## 🛠 Tecnologias
+- React Native + TypeScript  
+- AsyncStorage (JWT, mensagens)  
+- Axios / Fetch API  
+- FlatList para chat, gráficos para relatórios  
+
+## 🔑 Funcionalidades
+- **Login & Auth:** email/senha, lembrar-me ✅, sessão automática  
+- **Chat:** conversa estilo ChatGPT 💬, histórico local, bolhas usuário/bot  
+- **Envio Mensagens:** `POST /chat`, bot responde confirmação ✅  
+- **Offline:** fila de mensagens ⏳ → ✅, reenvio automático 🔄  
+- **API Segura:** token no header `Authorization`, renovação automática  
+- **Relatórios:** gastos por categoria 📊, últimas transações, filtro de datas  
+
+## ⚡ Quick Start
+```bash
+yarn install
+# backend rodando e API_URL configurado no .env
+yarn start
+```  
+
