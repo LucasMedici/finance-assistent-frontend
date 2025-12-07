@@ -1,6 +1,6 @@
 
 <div align="center">
-  <img width="200" height="200" alt="jorge_acenando" src="https://github.com/user-attachments/assets/322b0b30-e19c-4b48-94d9-2509a6fc3cbe" />
+  <img width="150" height="150" alt="jorge_acenando" src="https://github.com/user-attachments/assets/322b0b30-e19c-4b48-94d9-2509a6fc3cbe" />
 </div>
 
 # 📱 Finance Assistant App - Frontend (React Native + EXPO)
