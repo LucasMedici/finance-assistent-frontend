@@ -1,5 +1,9 @@
 
-# 📱 Finance Assistant App - Frontend (React Native + TypeScript)
+<div align="center">
+  <img width="150" height="150" alt="jorge_acenando" src="https://github.com/user-attachments/assets/322b0b30-e19c-4b48-94d9-2509a6fc3cbe" />
+</div>
+
+# 📱 Finance Assistant App - Frontend (React Native + EXPO)
 
 ## 🚀 Overview
 A mobile app for managing personal finances with an AI-powered chat assistant.  
@@ -37,7 +41,7 @@ Persistent login, offline message queue, and interactive charts.
 - Local message history  
 
 ### 3️⃣ Sending Messages
-- API: `POST /messages`  
+- API: `POST webhook/messages`  
 - Payload: `{
   "id": "msg-12345",
   "userPhone": "5511999999999",
@@ -86,7 +90,7 @@ Login persistente, mensagens offline e gráficos interativos.
 ## 🔑 Funcionalidades
 - **Login & Auth:** email/senha, lembrar-me ✅, sessão automática  
 - **Chat:** conversa estilo ChatGPT 💬, histórico local, bolhas usuário/bot  
-- **Envio Mensagens:** `POST /chat`, bot responde confirmação ✅  
+- **Envio Mensagens:** `POST /webhook/messages`, bot responde confirmação ✅  
 - **Offline:** fila de mensagens ⏳ → ✅, reenvio automático 🔄  
 - **API Segura:** token no header `Authorization`, renovação automática  
 - **Relatórios:** gastos por categoria 📊, últimas transações, filtro de datas  
