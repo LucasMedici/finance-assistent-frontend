@@ -2,7 +2,7 @@ import "dotenv/config";
 
 export default {
   expo: {
-    name: "Jorge Assistent",
+    name: "Jorge Assistant",
     slug: "finance-assistent-frontend",
     icon: "./src/assets/app-icon/icon.png",
     splash: {
