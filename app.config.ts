@@ -2,10 +2,16 @@ import "dotenv/config";
 
 export default {
   expo: {
-    name: "finance-assistent-frontend",
-    slug: "finance-assistent-frontend",
+    name: "Jorge Assistent",
+    slug: "finance-assistent",
+    icon: "./src/assets/app-icon/icon.png",
+    splash: {
+      image: "./src/assets/app-icon/play_store_512.png",
+      resizeMode: "contain",
+      backgroundColor: "#31266C"
+    },
     android: {
-      package: "com.lucasmedici.financeassistant",
+      package: "com.lucasmedici.financeassistent",
     },
     extra: {
       API_URL: process.env.API_URL,
