@@ -2,12 +2,17 @@
 
 # dependencies
 node_modules/
+yarn.lock
+package-lock.json
+pnpm-lock.yaml
 
 # Expo
 .expo/
 dist/
 web-build/
 expo-env.d.ts
+.expo-shared/
+eas.json.bak
 
 # Native
 .kotlin/
@@ -31,7 +36,10 @@ yarn-error.*
 *.pem
 
 # local env files
+.env
 .env*.local
+.env.production
+.env.development
 
 # typescript
 *.tsbuildinfo
@@ -39,3 +47,29 @@ yarn-error.*
 # generated native folders
 /ios
 /android
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+*.sublime-project
+*.sublime-workspace
+
+# OS
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Logs
+lerna-debug.log*
+
+# Testing
+coverage/
+.nyc_output/
+
+# Misc
+.cache/
