@@ -12,6 +12,10 @@ export default {
     },
     android: {
       package: "com.lucasmedici.financeassistent",
+      adaptiveIcon: {
+        foregroundImage: "./src/assets/app-icon/res/mipmap-xxxhdpi/ic_launcher_foreground.png",
+        backgroundColor: "#1A1A1A",
+      },
     },
     extra: {
       API_URL: process.env.API_URL,
