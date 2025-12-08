@@ -14,7 +14,7 @@ export default {
       package: "com.lucasmedici.financeassistent",
       adaptiveIcon: {
         foregroundImage: "./src/assets/app-icon/res/mipmap-xxxhdpi/app-icon_adaptive_fore.png",
-        backgroundColor: "#1A1A1A",
+        backgroundColor: "#008cffff",
       },
     },
     extra: {
