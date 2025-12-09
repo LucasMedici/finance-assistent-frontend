@@ -4,7 +4,7 @@ export default {
   expo: {
     name: "Jorge Assistant",
     slug: "finance-assistent-frontend",
-    icon: "./src/assets/app-icon/icon.png",
+    icon: "./src/assets/app-icon/app-icon.png",
     splash: {
       image: "./src/assets/app-icon/play_store_512.png",
       resizeMode: "contain",
@@ -12,10 +12,6 @@ export default {
     },
     android: {
       package: "com.lucasmedici.financeassistent",
-      adaptiveIcon: {
-        foregroundImage: "./src/assets/app-icon/res/mipmap-xxxhdpi/app-icon_adaptive_fore.png",
-        backgroundColor: "#008cffff",
-      },
     },
     extra: {
       API_URL: process.env.API_URL,
